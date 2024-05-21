@@ -1,19 +1,30 @@
 package com.allogica.Entities;
 
-public abstract class ContaIMPL implements Conta {
+public abstract class ContaAbstractIMPL implements Conta {
 
-    private static final int AGENCIA_PADRAO = 1;
-    private static int SEQUENCIAL = 1;
 
+
+    private Banco banco;
     protected int agencia;
     protected int numero;
     protected double saldo;
     protected Cliente cliente;
 
-    public ContaIMPL(Cliente cliente) {
-        this.agencia = ContaIMPL.AGENCIA_PADRAO;
-        this.numero = SEQUENCIAL++;
+    public ContaAbstractIMPL(Cliente cliente, Banco banco) {
         this.cliente = cliente;
+        this.banco = banco;
+        banco.addConta(this);
+    }
+
+
+    @Override
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    @Override
+    public void setAgencia(int agencia) {
+        this.agencia = agencia;
     }
 
     @Override
@@ -44,10 +55,17 @@ public abstract class ContaIMPL implements Conta {
         return saldo;
     }
 
-    protected void imprimirInfosComuns() {
+    protected void imprimirInfosComunsPrivadas() {
         System.out.println(String.format("Titular: %s", this.cliente.getNome()));
         System.out.println(String.format("Agencia: %d", this.agencia));
         System.out.println(String.format("Numero: %d", this.numero));
         System.out.println(String.format("Saldo: %.2f", this.saldo));
     }
+
+    protected void imprimirInfosComunsPublicas() {
+        System.out.println(String.format("Titular: %s", this.cliente.getNome()));
+        System.out.println(String.format("Agencia: %d", this.agencia));
+        System.out.println(String.format("Numero: %d", this.numero));
+    }
+
 }

@@ -8,4 +8,9 @@ public interface Conta {
     void transferir(double valor, Conta contaDestino);
 
     void imprimirExtrato();
+
+    void setAgencia(int agencia);
+
+    void setNumero(int numero);
+
 }
